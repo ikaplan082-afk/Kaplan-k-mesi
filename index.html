@@ -1,398 +1,608 @@
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1218"><meta name="apple-mobile-web-app-capable" content="yes"><title>Kaplan Kümesi Sürüm 3</title>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kaplan Kümesi - Pigeon Paradise</title>
+
 <style>
-:root{--bg:#0b1218;--p:#17242e;--p2:#22333e;--gold:#e2af3c;--green:#53bd73;--blue:#479ff5;--red:#d85b5b;--mut:#aebbc3}*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#091018,#203a45);color:#f6f8f9;font-family:-apple-system,BlinkMacSystemFont,Arial}#app{max-width:900px;margin:auto;min-height:100vh;padding:12px 12px 85px}button{font:inherit;cursor:pointer}header{display:flex;justify-content:space-between;align-items:center;background:#0c141ddd;padding:11px;border-radius:16px;position:sticky;top:0;z-index:9}.logo{font-size:20px;font-weight:900}.sub{font-size:12px;color:var(--mut)}.money{color:#ffdb75;font-weight:900;background:#25343e;padding:10px;border-radius:12px}.tabs{display:flex;gap:7px;overflow:auto;margin:12px 0}.tab,.nav{border:0;background:#1a2832;color:#dce4e8;border-radius:12px;padding:10px 13px;white-space:nowrap;font-weight:800}.active{background:var(--blue)!important;color:white!important}.screen{display:none}.screen.active{display:block}h2{margin:15px 2px 10px}.yard{height:320px;border-radius:20px;overflow:hidden;position:relative;background:linear-gradient(#74a9c1 0 42%,#806246 43%);border:1px solid #405966}.yard:after{content:"";position:absolute;z-index:1;inset:43% 0 0;background:repeating-linear-gradient(12deg,#846647 0 9px,#8f7351 9px 18px);opacity:.55}.coop{position:absolute;z-index:2;right:7%;bottom:28px;width:47%;height:132px;background:#62452c;border:7px solid #392717;border-radius:9px}.coop b{position:absolute;top:-36px;left:7%;background:#392717;padding:7px;border-radius:7px;font-size:12px}.bird{position:absolute;z-index:4;font-size:58px;transition:transform .4s;filter:drop-shadow(2px 5px 2px #0008);border:0;background:none}.bird:hover{transform:scale(1.18)}.b1{left:6%;bottom:23px}.b2{left:38%;bottom:48px;font-size:47px}.b3{right:16%;bottom:34px;font-size:45px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.stat{background:var(--p);padding:9px;border-radius:13px;text-align:center;font-size:12px}.stat b{display:block;font-size:18px;color:#8ce39d;margin-top:3px}.actions{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:10px}.action,.btn{border:0;border-radius:13px;padding:13px;background:#293c48;color:white;font-weight:850}.btn{background:var(--gold);color:#15110a}.blue{background:var(--blue)!important;color:white!important}.red{background:var(--red)!important;color:white!important}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px}.card,.panel{background:var(--p);border:1px solid #344955;border-radius:17px;padding:11px}.pic{font-size:55px;text-align:center;background:#0c141b;border-radius:12px}.name{font-size:17px;font-weight:900}.small{font-size:12px;color:var(--mut);margin:4px 0}.bar{height:8px;background:#091018;border-radius:20px;overflow:hidden;margin:4px 0 8px}.fill{height:100%;background:var(--green)}.bad{background:var(--red)!important}.status{font-size:11px;padding:4px 7px;border-radius:99px;background:#234c32;color:#a5edb4;display:inline-block}.sick{background:#562d2d;color:#ffb1b1}.detailBtn{width:100%;margin-top:8px}.panel{margin-top:10px}.offer{display:flex;gap:10px;align-items:center;background:var(--p);padding:12px;border-radius:16px;margin-bottom:9px}.offer>div:nth-child(2){flex:1}.emoji{font-size:42px}.price{color:#ffdb75;font-weight:900}.progress{height:17px;background:#091018;border-radius:99px;overflow:hidden}.progress div{height:100%;width:0;background:var(--gold);transition:.6s}footer{position:fixed;z-index:10;bottom:0;left:0;right:0;background:#091018ef;padding:8px;display:flex;justify-content:center;gap:6px}.nav{font-size:11px;padding:9px 8px}#modal{display:none;position:fixed;z-index:30;inset:0;background:#0009;align-items:end;justify-content:center}.modalBox{width:min(900px,100%);max-height:85vh;overflow:auto;background:#14212b;border-radius:24px 24px 0 0;padding:18px}.modalHead{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#2c3d48;color:white;border-radius:99px;width:36px;height:36px;font-size:20px}#toast{position:fixed;z-index:40;bottom:90px;left:50%;transform:translate(-50%,25px);opacity:0;background:#071018;border:1px solid #415765;padding:11px 16px;border-radius:99px;transition:.25s}.show{opacity:1!important;transform:translate(-50%,0)!important}@media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(2,1fr)}.logo{font-size:17px}}
-
-.skyBird{position:absolute;z-index:3;font-size:34px;animation:fly 8s linear infinite;filter:drop-shadow(2px 3px 2px #0006)}
-.skyBird.s2{top:22px;animation-delay:-4s;animation-duration:11s;font-size:26px}
-@keyframes fly{from{transform:translateX(-80px) translateY(15px)}50%{transform:translateX(55vw) translateY(-12px)}to{transform:translateX(105vw) translateY(10px)}}
-.bird{animation:bob 2.8s ease-in-out infinite}
-.b2{animation-delay:-.9s}.b3{animation-delay:-1.6s}
-@keyframes bob{0%,100%{margin-bottom:0;transform:rotate(-2deg)}50%{margin-bottom:7px;transform:rotate(2deg)}}
-.mission{background:linear-gradient(135deg,#20394a,#17242e);border:1px solid #415c6b;border-radius:17px;padding:13px;margin-top:10px}
-.missionRow{display:flex;justify-content:space-between;align-items:center;margin:7px 0;font-size:13px}
-.missionReward{color:#ffd76d;font-weight:800}
-.rankCard{background:linear-gradient(135deg,#5c4723,#1b2831);border:1px solid #82672d;border-radius:18px;padding:14px;margin-top:10px}
-
-
-.rarity{display:inline-block;padding:4px 8px;border-radius:99px;font-size:11px;font-weight:900;margin-top:5px}
-.common{background:#33434d}.rare{background:#24558a}.epic{background:#6a3d9b}.legend{background:#8a6826;color:#fff2b0}
-.diseaseBox{background:#4a2a2a;border-radius:12px;padding:10px;margin-top:8px}
-
-.pigeonArt{position:relative;height:70px;border-radius:12px;background:linear-gradient(135deg,#25333c,#111b22);overflow:hidden}
-.pigeonArt span{position:absolute;font-size:54px;left:50%;top:50%;transform:translate(-50%,-50%)}
-.pigeonArt.gray{filter:grayscale(.35)}.pigeonArt.white{filter:brightness(1.45) grayscale(.2)}.pigeonArt.dark{filter:brightness(.6)}.pigeonArt.gold{filter:sepia(.6) saturate(1.5)}
-.raceArena{height:260px;border-radius:20px;overflow:hidden;position:relative;background:linear-gradient(#69a8d0 0 56%,#567846 57%);border:1px solid #547083}
-.cloud{position:absolute;font-size:38px;opacity:.8}.c1{top:18px;left:8%}.c2{top:48px;right:12%}
-.racer{position:absolute;font-size:48px;left:3%;bottom:55px;transition:left .45s linear;filter:drop-shadow(2px 3px 2px #0007)}
-.finish{position:absolute;right:8%;bottom:40px;width:7px;height:150px;background:repeating-linear-gradient(0deg,#fff 0 10px,#111 10px 20px)}
-.track{position:absolute;bottom:0;left:0;right:0;height:55px;background:#4c4b42}
-.raceSelect{margin-bottom:10px}
-
-
-.achievement{display:flex;justify-content:space-between;align-items:center;background:#101a22;padding:10px;border-radius:12px;margin:7px 0;border:1px solid #2f4350}
-.locked{opacity:.55}.unlocked{border-color:#8a6826}.check{font-size:20px}
-
-
-.exploreScene{height:330px;border-radius:22px;position:relative;overflow:hidden;background:linear-gradient(#79bce0 0 48%,#80a85a 49% 100%);border:1px solid #4d7488}
-.sun{position:absolute;right:9%;top:20px;font-size:54px}.hill{position:absolute;bottom:55px;width:70%;height:160px;border-radius:50% 50% 0 0;background:#5d8648}.h1{left:-25%}.h2{right:-25%;height:120px;background:#4f7441}
-.tree{position:absolute;bottom:48px;font-size:64px;z-index:3}.t1{left:8%}.t2{left:42%;font-size:72px}.t3{right:10%}
-.exploreCoop{position:absolute;right:30%;bottom:42px;z-index:2;font-size:72px;display:flex;flex-direction:column;align-items:center}.exploreCoop small{font-size:9px;background:#1a2730;color:#fff;padding:3px 6px;border-radius:7px}
-.exploreBird{position:absolute;z-index:5;background:none;border:0;font-size:54px;filter:drop-shadow(2px 4px 2px #0007);animation:exploreBob 2s ease-in-out infinite}.eb1{left:16%;bottom:40px}.eb2{left:48%;bottom:92px;font-size:42px;animation-delay:-.7s}.eb3{right:9%;bottom:34px;font-size:46px;animation-delay:-1.2s}
-@keyframes exploreBob{50%{transform:translateY(-9px) rotate(4deg)}}
-
-
-.flightScene{height:340px;border-radius:22px;position:relative;overflow:hidden;background:linear-gradient(#61aee3,#a5d9ee 58%,#73934d 59%);border:1px solid #4d7488}
-.flightSun{position:absolute;right:8%;top:20px;font-size:55px}.flightCloud{position:absolute;font-size:45px;opacity:.9}.fc1{left:8%;top:45px}.fc2{right:28%;top:90px;font-size:34px}
-.city{position:absolute;bottom:28px;left:0;right:0;font-size:45px;white-space:nowrap;opacity:.9}
-.flightBird{position:absolute;left:8%;top:52%;font-size:62px;z-index:5;transition:left .55s linear,top .55s ease;filter:drop-shadow(3px 5px 2px #0008);animation:wing .6s ease-in-out infinite alternate}
-@keyframes wing{to{transform:translateY(-6px) rotate(3deg)}}.target{position:absolute;right:8%;top:28%;font-size:42px;z-index:4}
-
-
-.weatherCard{background:linear-gradient(135deg,#233b4c,#17242e);border:1px solid #466174;border-radius:18px;padding:14px;margin:10px 0}
-.weatherTop{display:flex;justify-content:space-between;align-items:center}.weatherIcon{font-size:52px}
-.weatherStats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.weatherStat{background:#0d1720;border-radius:12px;padding:8px;text-align:center;font-size:12px}
-.rainDrop{position:absolute;z-index:8;width:2px;height:16px;background:#d5f0ff;opacity:.8;animation:rain .65s linear infinite}
-@keyframes rain{from{transform:translateY(-25px)}to{transform:translateY(380px)}}
-.night{filter:brightness(.55) saturate(.75)}
-.moon{position:absolute;z-index:6;right:8%;top:15px;font-size:52px;display:none}
-.night .moon{display:block}.night .flightSun{display:none}
-.wind{animation:windMove 1s ease-in-out infinite alternate}
-@keyframes windMove{to{transform:translateX(12px)}}
-
-
-.nameInput{width:100%;padding:13px;border-radius:12px;border:1px solid #415765;background:#0b141b;color:white;margin-bottom:8px;font:inherit}
-.traitGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.traitBtn{border:1px solid #3a5060;background:#17242e;color:#fff;padding:11px;border-radius:12px;font-weight:800}.traitBtn.selected{background:#6a4c20;border-color:#d8a936}
-.heroBird{font-size:90px;text-align:center;filter:drop-shadow(3px 7px 3px #0008);animation:heroFloat 2.5s ease-in-out infinite}.heroBird.gold{filter:sepia(.7) saturate(1.6) drop-shadow(3px 7px 3px #0008)}.heroBird.white{filter:brightness(1.6) drop-shadow(3px 7px 3px #0008)}.heroBird.dark{filter:brightness(.65) drop-shadow(3px 7px 3px #0008)}
-@keyframes heroFloat{50%{transform:translateY(-10px) scale(1.04)}}
-
-
-.mapScene{height:360px;border-radius:22px;position:relative;overflow:hidden;background:linear-gradient(135deg,#24465b,#2e6656);border:1px solid #52788a}
-.mapScene:before{content:"TÜRKİYE";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:44px;font-weight:900;opacity:.14;letter-spacing:8px}
-.cityNode{position:absolute;z-index:5;border:0;background:#20323d;color:#fff;font-weight:900;border-radius:12px;padding:8px;display:flex;flex-direction:column;align-items:center;font-size:11px;box-shadow:0 4px 8px #0006}.cityNode.open{background:#275e43}.cityNode.selected{outline:3px solid #e2af3c}.lockedCity{opacity:.7}
-.routeLine{position:absolute;height:3px;background:#8cc6dcaa;transform-origin:left center;z-index:2}.r1{left:22%;top:61%;width:22%;transform:rotate(-29deg)}.r2{left:42%;top:47%;width:22%;transform:rotate(-21deg)}.r3{left:62%;top:37%;width:25%;transform:rotate(35deg)}
-
-
-.storeStats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.storeStats div{background:#0d1720;border:1px solid #314653;padding:12px;border-radius:12px;text-align:center}
-.shopGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.shopItem{background:#17242e;color:#fff;border:1px solid #38505f;border-radius:15px;padding:12px;display:flex;flex-direction:column;gap:4px;text-align:center;font:inherit}.shopItem:first-letter{font-size:26px}.shopItem span{font-size:11px;opacity:.75}.shopItem em{font-style:normal;color:#ffd76d;font-weight:900;font-size:12px}
-.yardDecor{position:absolute;z-index:8;left:12px;right:12px;bottom:8px;display:flex;justify-content:space-between;pointer-events:none;font-size:32px;text-shadow:1px 2px 2px #0008}
-
-
-.farmScene{height:330px;border-radius:22px;position:relative;overflow:hidden;background:linear-gradient(#78b9de 0 48%,#77a452 49% 100%);border:1px solid #4d7488}
-.farmField{position:absolute;bottom:18px;left:0;right:0;font-size:34px;white-space:nowrap;opacity:.9}
-.farmCoop{position:absolute;left:38%;bottom:58px;font-size:92px;z-index:3;text-align:center;filter:drop-shadow(3px 5px 2px #0006)}.farmCoop span{display:block;font-size:9px;background:#16242d;color:#fff;border-radius:7px;padding:3px}
-.farmPond{position:absolute;right:10%;bottom:55px;font-size:64px}.farmGate{position:absolute;left:8%;bottom:45px;font-size:54px}.farmBirds{position:absolute;right:18%;bottom:35px;font-size:36px;animation:farmMove 3s ease-in-out infinite alternate}
-@keyframes farmMove{to{transform:translateX(-25px) translateY(-5px)}}
-.areaRow{display:flex;justify-content:space-between;align-items:center;padding:11px;border-radius:12px;margin:7px 0;background:#101a22;border:1px solid #2f4350}.areaRow.open{border-color:#4e8a60}.areaRow.lock{opacity:.6}
-
-</style>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Kaplan Kümesi">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon.svg">
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#17242e;
+ color:white;
+ overflow-x:hidden;
 }
+header{
+ background:#101820;
+ padding:15px;
+ text-align:center;
+ border-bottom:2px solid #e2af3c;
+}
+h1{margin:0;color:#e2af3c;font-size:28px}
+.sub{color:#aaa;margin-top:5px}
+
+.stats{
+ display:flex;
+ gap:10px;
+ padding:10px;
+ overflow:auto;
+ background:#1d2d38;
+}
+.stat{
+ background:#263946;
+ border:1px solid #49616d;
+ border-radius:10px;
+ padding:10px 15px;
+ min-width:110px;
+ text-align:center;
+}
+
+.game{
+ max-width:1000px;
+ margin:auto;
+ padding:15px;
+}
+
+.roof{
+ position:relative;
+ min-height:330px;
+ background:linear-gradient(#4d7ca5 0%,#7da4c4 55%,#5c5c5c 56%,#424242 100%);
+ border-radius:18px;
+ overflow:hidden;
+ border:3px solid #263946;
+}
+
+.sun{
+ position:absolute;
+ width:55px;height:55px;
+ border-radius:50%;
+ background:#ffd75e;
+ right:30px;top:25px;
+ box-shadow:0 0 35px #ffd75e;
+}
+
+.owner{
+ position:absolute;
+ left:25px;
+ bottom:35px;
+ text-align:center;
+ font-size:52px;
+ filter:drop-shadow(2px 4px 3px #000);
+}
+
+.ownerName{
+ font-size:14px;
+ background:#111;
+ padding:5px 8px;
+ border-radius:8px;
+ color:#e2af3c;
+}
+
+.coop{
+ position:absolute;
+ right:35px;
+ bottom:25px;
+ width:70%;
+ max-width:650px;
+ background:#9b613b;
+ border:7px solid #60371f;
+ border-radius:12px 12px 4px 4px;
+ padding:15px;
+}
+
+.coopTitle{
+ text-align:center;
+ color:#fff4d4;
+ font-weight:bold;
+ margin-bottom:10px;
+ font-size:18px;
+}
+
+.nests{
+ display:grid;
+ grid-template-columns:repeat(6,1fr);
+ gap:7px;
+}
+
+.nest{
+ background:#4e301e;
+ border:2px solid #c58a4c;
+ border-radius:8px;
+ min-height:55px;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ cursor:pointer;
+ font-size:20px;
+ transition:.2s;
+}
+
+.nest:hover{
+ transform:scale(1.05);
+ border-color:#ffd75e;
+}
+
+.nest small{
+ font-size:9px;
+ color:#ddd;
+}
+
+.panel{
+ margin-top:15px;
+ background:#1e2d38;
+ border:1px solid #415967;
+ border-radius:15px;
+ padding:15px;
+}
+
+.panel h2{
+ margin-top:0;
+ color:#e2af3c;
+}
+
+.buttons{
+ display:flex;
+ flex-wrap:wrap;
+ gap:10px;
+}
+
+button{
+ border:0;
+ padding:12px 16px;
+ border-radius:10px;
+ background:#e2af3c;
+ color:#1b1b1b;
+ font-weight:bold;
+ cursor:pointer;
+ font-size:15px;
+}
+
+button:hover{filter:brightness(1.1)}
+button:disabled{opacity:.5}
+
+.birds{
+ display:grid;
+ grid-template-columns:repeat(auto-fill,minmax(145px,1fr));
+ gap:10px;
+ margin-top:15px;
+}
+
+.bird{
+ background:#283b48;
+ border:1px solid #49616d;
+ border-radius:12px;
+ padding:12px;
+ text-align:center;
+}
+
+.birdIcon{font-size:42px}
+.male{border-bottom:4px solid #55aaff}
+.female{border-bottom:4px solid #ff75b5}
+.baby{border-bottom:4px solid #7ee36e}
+
+.log{
+ max-height:180px;
+ overflow:auto;
+ background:#111b22;
+ border-radius:10px;
+ padding:10px;
+ color:#ddd;
+ margin-top:15px;
+}
+
+.log div{
+ padding:5px;
+ border-bottom:1px solid #263946;
+}
+
+#message{
+ margin-top:10px;
+ padding:10px;
+ border-radius:8px;
+ background:#243541;
+ color:#ffd75e;
+ display:none;
+}
+
+@media(max-width:650px){
+ .coop{
+  position:relative;
+  right:auto;
+  bottom:auto;
+  width:100%;
+  max-width:none;
+  margin-top:140px;
+ }
+ .roof{padding:10px}
+ .nests{grid-template-columns:repeat(5,1fr)}
+ .owner{bottom:260px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <h1>🕊️ KAPLAN KÜMESİ</h1>
+ <div class="sub">Pigeon Paradise • Güvercin Yetiştirme Oyunu</div>
+</header>
+
+<div class="stats">
+ <div class="stat">💰 Para<br><b id="money">1000</b> ₺</div>
+ <div class="stat">🌾 Yem<br><b id="food">100</b></div>
+ <div class="stat">🕊️ Güvercin<br><b id="birdCount">0</b></div>
+ <div class="stat">🥚 Yumurta<br><b id="eggCount">0</b></div>
+ <div class="stat">🐣 Yavru<br><b id="babyCount">0</b></div>
+</div>
+
+<div class="game">
+
+<div class="roof">
+ <div class="sun"></div>
+
+ <div class="owner">
+  👨🏻
+  <div class="ownerName">KAPLAN<br>Güvercin Sahibi</div>
+ </div>
+
+ <div class="coop">
+  <div class="coopTitle">🏠 KAPLAN KÜMESİ — 30 YUVA</div>
+  <div class="nests" id="nests"></div>
+ </div>
+</div>
+
+<div class="panel">
+ <h2>🎮 Kümes Yönetimi</h2>
+
+ <div class="buttons">
+  <button onclick="buyMale()">🕊️ Erkek Güvercin Al — 150₺</button>
+  <button onclick="buyFemale()">🕊️ Dişi Güvercin Al — 150₺</button>
+  <button onclick="buyFood()">🌾 50 Yem Al — 50₺</button>
+  <button onclick="feedBirds()">🌾 Güvercinleri Yemle</button>
+  <button onclick="breed()">❤️ Güvercinleri Çiftleştir</button>
+ </div>
+
+ <div id="message"></div>
+</div>
+
+<div class="panel">
+ <h2>🕊️ Güvercinlerim</h2>
+ <div class="birds" id="birds"></div>
+</div>
+
+<div class="panel">
+ <h2>📜 Kümes Olayları</h2>
+ <div class="log" id="log"></div>
+</div>
+
+</div>
+
+<script>
+
+let money=1000;
+let food=100;
+let birds=[];
+let eggs=[];
+let babies=[];
+let nextId=1;
+
+function log(text){
+ const box=document.getElementById("log");
+ box.innerHTML="<div>🕒 "+text+"</div>"+box.innerHTML;
+}
+
+function message(text){
+ const m=document.getElementById("message");
+ m.style.display="block";
+ m.innerText=text;
+ setTimeout(()=>m.style.display="none",3000);
+}
+
+function update(){
+ document.getElementById("money").innerText=money;
+ document.getElementById("food").innerText=food;
+ document.getElementById("birdCount").innerText=birds.length;
+ document.getElementById("eggCount").innerText=eggs.length;
+ document.getElementById("babyCount").innerText=babies.length;
+
+ renderNests();
+ renderBirds();
+ saveGame();
+}
+
+function renderNests(){
+ const nests=document.getElementById("nests");
+ nests.innerHTML="";
+
+ for(let i=1;i<=30;i++){
+
+  let bird=birds[i-1];
+  let egg=eggs.find(e=>e.nest===i);
+  let baby=babies.find(b=>b.nest===i);
+
+  let content="🪹";
+  let name="Boş";
+
+  if(bird){
+   content=bird.gender==="male"?"🕊️":"🕊️";
+   name=bird.name;
+  }
+
+  if(egg){
+   content="🥚";
+   name="Yumurta • "+egg.days+" gün";
+  }
+
+  if(baby){
+   content=baby.stage==="yavru"?"🐣":"🕊️";
+   name=baby.stage+" • "+baby.days+" gün";
+  }
+
+  nests.innerHTML+=`
+  <div class="nest" onclick="nestInfo(${i})">
+   <div>${content}</div>
+   <small>${i}. Yuva<br>${name}</small>
+  </div>`;
+ }
+}
+
+function nestInfo(i){
+ let bird=birds[i-1];
+ let egg=eggs.find(e=>e.nest===i);
+ let baby=babies.find(b=>b.nest===i);
+
+ if(bird) message(i+". yuvada "+bird.name+" bulunuyor.");
+ else if(egg) message(i+". yuvada yumurta var. "+egg.days+" gün kaldı.");
+ else if(baby) message(i+". yuvada büyüyen yavru var.");
+ else message(i+". yuva şu anda boş.");
+}
+
+function renderBirds(){
+ const box=document.getElementById("birds");
+
+ if(birds.length===0){
+  box.innerHTML="<p>Henüz güvercinin yok. İlk güvercinlerini satın al.</p>";
+  return;
+ }
+
+ box.innerHTML="";
+
+ birds.forEach((bird,index)=>{
+  box.innerHTML+=`
+  <div class="bird ${bird.gender}">
+   <div class="birdIcon">🕊️</div>
+   <b>${bird.name}</b><br>
+   ${bird.gender==="male"?"♂️ Erkek":"♀️ Dişi"}<br>
+   <small>Yaş: ${bird.age} gün</small><br>
+   <small>Sağlık: ❤️ ${bird.health}</small>
+  </div>`;
+ });
+}
+
+function buyMale(){
+ if(money<150){
+  message("❌ Yeterli paran yok!");
+  return;
+ }
+
+ if(birds.length>=30){
+  message("❌ 30 yuvanın tamamı dolu!");
+  return;
+ }
+
+ money-=150;
+
+ birds.push({
+  id:nextId++,
+  name:"Erkek #"+nextId,
+  gender:"male",
+  age:30,
+  health:100
+ });
+
+ log("Yeni erkek güvercin satın alındı.");
+ update();
+}
+
+function buyFemale(){
+ if(money<150){
+  message("❌ Yeterli paran yok!");
+  return;
+ }
+
+ if(birds.length>=30){
+  message("❌ 30 yuvanın tamamı dolu!");
+  return;
+ }
+
+ money-=150;
+
+ birds.push({
+  id:nextId++,
+  name:"Dişi #"+nextId,
+  gender:"female",
+  age:30,
+  health:100
+ });
+
+ log("Yeni dişi güvercin satın alındı.");
+ update();
+}
+
+function buyFood(){
+ if(money<50){
+  message("❌ Yeterli paran yok!");
+  return;
+ }
+
+ money-=50;
+ food+=50;
+
+ log("50 yem satın alındı.");
+ update();
+}
+
+function feedBirds(){
+ let needed=birds.length*2;
+
+ if(birds.length===0){
+  message("Önce güvercin almalısın!");
+  return;
+ }
+
+ if(food<needed){
+  message("❌ Yeterli yem yok!");
+  return;
+ }
+
+ food-=needed;
+
+ birds.forEach(b=>{
+  b.health=Math.min(100,b.health+10);
+ });
+
+ log("Güvercinler yemlendi. 🌾");
+ message("🕊️ Güvercinler mutlu ve tok!");
+ update();
+}
+
+function breed(){
+
+ let males=birds.filter(b=>b.gender==="male");
+ let females=birds.filter(b=>b.gender==="female");
+
+ if(males.length===0 || females.length===0){
+  message("❌ Çiftleşmek için en az 1 erkek ve 1 dişi gerekli!");
+  return;
+ }
+
+ if(food<10){
+  message("❌ Çiftleşme için kümesinde yeterli yem olmalı!");
+  return;
+ }
+
+ food-=10;
+
+ let emptyNest=null;
+
+ for(let i=1;i<=30;i++){
+  if(!eggs.some(e=>e.nest===i) && !babies.some(b=>b.nest===i)){
+   emptyNest=i;
+   break;
+  }
+ }
+
+ if(emptyNest===null){
+  message("❌ Yumurta için boş yuva yok!");
+  return;
+ }
+
+ if(Math.random()<0.75){
+
+  eggs.push({
+   nest:emptyNest,
+   days:3
+  });
+
+  log("❤️ Bir çift güvercin çiftleşti!");
+  log("🥚 "+emptyNest+". yuvaya yumurta bırakıldı!");
+  message("🥚 Yeni yumurta oluştu!");
+
+ }else{
+  log("Güvercinler çiftleşti fakat henüz yumurta olmadı.");
+  message("Henüz yumurta oluşmadı. Tekrar deneyebilirsin.");
+ }
+
+ update();
+}
+
+function nextDay(){
+
+ birds.forEach(b=>{
+  b.age++;
+  b.health=Math.max(0,b.health-3);
+ });
+
+ eggs.forEach(e=>{
+  e.days--;
+ });
+
+ let hatched=eggs.filter(e=>e.days<=0);
+
+ hatched.forEach(e=>{
+  babies.push({
+   nest:e.nest,
+   days:0,
+   stage:"yavru"
+  });
+
+  log("🐣 "+e.nest+". yuvadaki yumurta çatladı!");
+ });
+
+ eggs=eggs.filter(e=>e.days>0);
+
+ babies.forEach(b=>{
+  b.days++;
+
+  if(b.days>=5 && b.stage==="yavru"){
+   b.stage="genç";
+   log("🐤 Bir yavru genç güvercin oldu!");
+  }
+
+  if(b.days>=10 && b.stage==="genç"){
+
+   if(birds.length<30){
+    birds.push({
+     id:nextId++,
+     name:"Yavru #"+nextId,
+     gender:Math.random()>0.5?"male":"female",
+     age:10,
+     health:90
+    });
+   }
+
+   log("🕊️ Bir yavru yetişkin güvercin oldu!");
+  }
+ });
+
+ babies=babies.filter(b=>b.days<10);
+
+ log("☀️ Yeni gün başladı.");
+ update();
+}
+
+function saveGame(){
+ localStorage.setItem("kaplanKumesi",JSON.stringify({
+  money,food,birds,eggs,babies,nextId
+ }));
+}
+
+function loadGame(){
+ let data=localStorage.getItem("kaplanKumesi");
+
+ if(data){
+  try{
+   data=JSON.parse(data);
+   money=data.money??1000;
+   food=data.food??100;
+   birds=data.birds??[];
+   eggs=data.eggs??[];
+   babies=data.babies??[];
+   nextId=data.nextId??1;
+  }catch(e){}
+ }
+}
+
+loadGame();
+update();
+log("🏠 Kaplan Kümesi oyunu başlatıldı.");
+
+setInterval(nextDay,60000);
+
 </script>
 
-</head><body><div id="app">
-<header><div><div class="logo">🕊️ KAPLAN KÜMESİ</div><div class="sub">Seviye <span id="level"></span> • XP <span id="xp"></span>/100 • 🏠 Kümes Lv.<span id="coopLevel"></span></div></div><div class="money">🪙 <span id="coins"></span></div></header>
-<div class="tabs"><button class="tab active" data-s="coop">🏠 Kümes</button><button class="tab" data-s="birds">🕊️ Güvercinler</button><button class="tab" data-s="custom">✨ Karakter</button><button class="tab" data-s="breed">🥚 Üretim</button><button class="tab" data-s="health">💊 Sağlık</button><button class="tab" data-s="auction">🔨 Pazar</button><button class="tab" data-s="collection">📚 Koleksiyon</button><button class="tab" data-s="market">🛒 Market</button><button class="tab" data-s="store">🏪 Dükkan</button><button class="tab" data-s="farm">🏡 Çiftlik</button><button class="tab" data-s="race">🏆 Lig</button></div>
-<section id="coop" class="screen active"><h2>Ana Kümes</h2><div class="yard"><div id="yardDecor" class="yardDecor"></div><div class="skyBird">🕊️</div><div class="skyBird s2">🕊️</div><div class="coop"><b>KAPLAN KÜMESİ • LV.<span id="yardLevel"></span></b></div><button class="bird b1" onclick="openBird(0)">🕊️</button><button class="bird b2" onclick="openBird(1)">🕊️</button><button class="bird b3" onclick="openBird(2)">🕊️</button></div>
-<div class="stats"><div class="stat">🌾 Yem<b id="feed"></b></div><div class="stat">💧 Su<b id="water"></b></div><div class="stat">🥚 Yumurta<b id="eggs"></b></div><div class="stat">🐣 Yavru<b id="chicks"></b></div></div><div class="weatherCard"><div class="weatherTop"><div><h3 style="margin:0">🌤️ Hava Durumu</h3><div class="small" id="weatherName">Güneşli</div></div><div class="weatherIcon" id="weatherIcon">☀️</div></div>
-<div class="weatherStats"><div class="weatherStat">🌬️ Rüzgâr<br><b id="windStat">10 km/s</b></div><div class="weatherStat">🌡️ Etki<br><b id="weatherEffect">+5</b></div><div class="weatherStat">🕒 Zaman<br><b id="timeMode">Gündüz</b></div></div>
-<div class="actions"><button class="action" onclick="changeWeather()">🔄 Havayı Değiştir</button><button class="action" onclick="toggleDayNight()">🌙 Gece/Gündüz</button></div></div><div class="actions"><button class="action" onclick="care('feed')">🌾 Yem Ver</button><button class="action" onclick="care('water')">💧 Su Ver</button><button class="action" onclick="healthCheck()">💊 Sağlık Kontrolü</button><button class="action" onclick="upgradeCoop()">🏠 Kümesi Yükselt</button></div>
-<div class="mission">
-<h3>🎯 Günlük Görevler</h3>
-<div class="missionRow"><span>🌾 Güvercinleri 1 kez besle</span><span id="mFeed">0/1</span></div>
-<div class="missionRow"><span>🏁 1 yarış tamamla</span><span id="mRace">0/1</span></div>
-<div class="missionRow"><span>🎁 Günlük ödül</span><button class="btn" id="dailyBtn" onclick="dailyReward()">AL</button></div>
-</div>
-</section>
-<section id="map" class="screen"><h2>🗺️ Türkiye Uçuş Haritası</h2>
-<div class="mapScene">
-  <div class="routeLine r1"></div><div class="routeLine r2"></div><div class="routeLine r3"></div>
-  <button class="cityNode open" onclick="selectCity(0)" style="left:18%;top:56%">📍<span>Gaziantep</span></button>
-  <button class="cityNode" onclick="selectCity(1)" style="left:38%;top:42%">📍<span>Adana</span></button>
-  <button class="cityNode lockedCity" onclick="selectCity(2)" style="left:58%;top:32%">🔒<span>Ankara</span></button>
-  <button class="cityNode lockedCity" onclick="selectCity(3)" style="left:75%;top:58%">🔒<span>İstanbul</span></button>
-</div>
-<div class="panel"><h3 id="cityTitle">📍 Gaziantep</h3><p id="cityDesc" class="small">Başlangıç şehrin. Buradaki yarışlara ücretsiz katılabilirsin.</p>
-<div class="achievement"><span>🏁 Şehir puanı</span><b id="cityPoints">0</b></div>
-<button class="btn blue" onclick="cityRace()">🏆 Şehir Yarışına Katıl</button>
-<button class="btn" onclick="unlockCity()">🔓 Sonraki Şehri Aç</button></div>
-<div class="panel"><h3>🌍 Açılan Şehirler</h3><div id="cityList" class="small"></div></div>
-</section><section id="flight" class="screen"><h2>💨 Serbest Uçuş</h2>
-<div class="flightScene" id="flightScene"><div class="moon">🌙</div><div id="rainLayer"></div>
-<div class="flightSun">☀️</div><div class="flightCloud fc1">☁️</div><div class="flightCloud fc2">☁️</div>
-<div class="city">🏘️ 🏠 🏢 🏡 🏘️</div><div id="flightBird" class="flightBird">🕊️</div>
-<div id="flightTarget" class="target">🎯</div>
-</div>
-<div class="panel">
-<h3>🕊️ Uçuşa Güvercin Gönder</h3>
-<select id="flightSelect" class="select"></select>
-<div class="actions">
-<button class="action" onclick="startFlight()">🚀 Uçuşu Başlat</button>
-<button class="action" onclick="callBack()">🏠 Geri Çağır</button>
-</div>
-<p id="flightInfo" class="small">Bir güvercin seç ve uçuşa gönder.</p>
-<div class="progress"><div id="flightBar"></div></div>
-</div>
-<div class="panel"><h3>📍 Uçuş Geçmişi</h3><div id="flightLog" class="small"></div></div>
-</section><section id="explore" class="screen"><h2>🌍 Keşfet</h2>
-<div class="exploreScene">
-  <div class="sun">☀️</div><div class="hill h1"></div><div class="hill h2"></div>
-  <div class="tree t1">🌳</div><div class="tree t2">🌲</div><div class="tree t3">🌳</div>
-  <div class="exploreCoop">🏠<small>UZAK KÜMES</small></div>
-  <button class="exploreBird eb1" onclick="findLoot()">🕊️</button>
-  <button class="exploreBird eb2" onclick="findLoot()">🕊️</button>
-  <button class="exploreBird eb3" onclick="findLoot()">🕊️</button>
-</div>
-<div class="panel"><h3>🧭 Serbest Gezinti</h3><p class="small">Güvercinlere dokun. Keşif sırasında oyun içi ödül veya özel buluntu çıkabilir.</p>
-<button class="btn blue" onclick="startExplore()">🚶 Keşfe Çık</button>
-<p id="exploreText" class="small">Hazır olduğunda keşfe çık.</p></div>
-<div class="panel"><h3>📦 Buluntular</h3><div id="lootList" class="small"></div></div>
-</section><section id="birds" class="screen"><h2>Güvercinlerim</h2><div id="grid" class="grid"></div></section>
-<section id="custom" class="screen"><h2>✨ Güvercin Karakteri</h2>
-<div class="panel">
-<h3>🕊️ Güvercinini Seç</h3>
-<select id="customBird" class="select" onchange="renderCustom()"></select>
-<div id="customPreview"></div>
-</div>
-<div class="panel">
-<h3>✏️ İsim Değiştir</h3>
-<input id="renameInput" maxlength="16" placeholder="Yeni isim" class="nameInput">
-<button class="btn blue" onclick="renameBird()">KAYDET</button>
-</div>
-<div class="panel">
-<h3>🎭 Karakter Özelliği</h3>
-<div id="traitList" class="traitGrid"></div>
-</div>
-<div class="panel">
-<h3>📈 Gelişim</h3>
-<div id="growthInfo"></div>
-<button class="btn" onclick="specialTraining()">⭐ Özel Eğitim • 500 🪙</button>
-</div>
-</section><section id="breed" class="screen"><h2>Üretim Merkezi</h2><div class="panel"><h3>❤️ Çiftleştirme</h3><select id="male" class="select"></select><select id="female" class="select"></select><button class="btn blue" onclick="pair()">Eşleştir</button><p id="pairInfo" class="small"></p></div><div class="panel"><h3>🥚 Kuluçka</h3><p class="small">Yumurtan varsa yavru çıkarabilirsin.</p><button class="btn" onclick="hatch()">🐣 Yavru Çıkar</button></div></section>
-<section id="health" class="screen"><h2>💊 Sağlık Merkezi</h2>
-<div class="panel"><h3>Güvercin Tedavisi</h3><p class="small">Hasta güvercini seç ve uygun tedaviyi uygula.</p>
-<select id="patient" class="select"></select>
-<div class="actions"><button class="action" onclick="treat('basic')">💊 Genel İlaç • 300 🪙</button><button class="action" onclick="treat('vitamin')">🍋 Vitamin • 150 🪙</button></div>
-<p id="healthInfo" class="small"></p></div>
-<div class="panel"><h3>🧬 Nadirlik Sistemi</h3><p class="small">Güvercinler artık genetik potansiyeline göre nadirlik kazanır.</p><div id="rarityInfo"></div></div>
-</section>
-<section id="farm" class="screen"><h2>🏡 Güvercin Çiftliğin</h2>
-<div class="farmScene">
-  <div class="farmField">🌿 🌾 🌿 🌾 🌿 🌾 🌿</div>
-  <div class="farmCoop">🏠<span id="farmCoopLevel">SEVİYE 1</span></div>
-  <div class="farmPond">💧</div>
-  <div class="farmGate">🚪</div>
-  <div class="farmBirds">🕊️ 🕊️ 🕊️</div>
-</div>
-
-<div class="panel">
-<h3>🏠 Kümes Alanları</h3>
-<div id="areaList"></div>
-</div>
-
-<div class="panel">
-<h3>🔨 Yeni Alan Aç</h3>
-<p class="small">Çiftliğin büyüdükçe daha fazla güvercin barındırabilir ve yeni özellikler açabilirsin.</p>
-<button class="btn blue" onclick="upgradeFarm()">⬆️ Çiftliği Büyüt</button>
-<p id="farmInfo" class="small"></p>
-</div>
-
-<div class="panel">
-<h3>📊 Çiftlik Durumu</h3>
-<div class="storeStats">
-<div>🏠 Seviye <b id="farmLevel">1</b></div>
-<div>🕊️ Kapasite <b id="farmCap">0</b></div>
-<div>📍 Alan <b id="farmAreaCount">1</b></div>
-<div>⭐ Bonus <b id="farmBonus">0%</b></div>
-</div>
-</div>
-</section><section id="store" class="screen"><h2>🏪 Kümes Dükkanı</h2>
-<div class="panel"><h3>📦 Depo</h3><div class="storeStats">
-<div>🌾 Yem <b id="invFeed">0</b></div><div>💧 Su <b id="invWater">0</b></div><div>💊 İlaç <b id="invMed">0</b></div><div>⭐ Dekor <b id="invDecor">0</b></div>
-</div></div>
-<div class="panel"><h3>🛒 Malzemeler</h3><div class="shopGrid">
-<button class="shopItem" onclick="buyStore('feed')">🌾<b>Yem Paketi</b><span>+30 yem</span><em>300 🪙</em></button>
-<button class="shopItem" onclick="buyStore('water')">💧<b>Su Deposu</b><span>+30 su</span><em>200 🪙</em></button>
-<button class="shopItem" onclick="buyStore('med')">💊<b>İlaç Kutusu</b><span>+2 ilaç</span><em>600 🪙</em></button>
-</div></div>
-<div class="panel"><h3>🏠 Kümes Dekorasyonu</h3>
-<div class="shopGrid">
-<button class="shopItem" onclick="buyStore('flag')">🚩<b>Kümes Bayrağı</b><span>+10 koleksiyon</span><em>900 🪙</em></button>
-<button class="shopItem" onclick="buyStore('lamp')">🏮<b>Gece Lambası</b><span>Gece ışığı</span><em>1200 🪙</em></button>
-<button class="shopItem" onclick="buyStore('garden')">🌿<b>Bahçe</b><span>Sağlık bonusu</span><em>1800 🪙</em></button>
-<button class="shopItem" onclick="buyStore('statue')">🏆<b>Şampiyon Kupası</b><span>+25 koleksiyon</span><em>2500 🪙</em></button>
-</div></div>
-<div class="panel"><h3>✨ Aktif Dekorlar</h3><div id="decorList" class="small"></div></div>
-</section><section id="auction" class="screen"><h2>🔨 Oyuncu Pazarı</h2>
-<div class="panel"><h3>Günün Özel Güvercini</h3><div id="auctionOffer"></div><p class="small">Bu pazar oyun içi para ile çalışır. Gerçek para yoktur.</p></div></section>
-<section id="collection" class="screen"><h2>📚 Güvercin Koleksiyonu</h2>
-<div class="panel"><h3>Koleksiyon Gücün: <span id="collectionPower"></span></h3><p class="small">Nadir ve güçlü güvercinler daha fazla koleksiyon puanı kazandırır.</p></div>
-<div id="collectionGrid" class="grid"></div>
-<div class="panel"><h3>🏅 Başarılar</h3><div id="achievements"></div></div>
-</section>
-<section id="market" class="screen"><h2>Market</h2><div id="marketList"></div><div class="panel"><button class="btn" onclick="resource('feed',50,300)">🌾 50 Yem • 300 🪙</button> <button class="btn" onclick="resource('water',50,200)">💧 50 Su • 200 🪙</button></div></section>
-<section id="race" class="screen"><h2>🏆 Uçuş Ligi</h2>
-<div class="panel"><h3 id="league">Bronz Lig</h3><p class="small">Lig puanın: <b id="points"></b></p>
-<select id="raceBird" class="select raceSelect"></select>
-<div class="raceArena"><div class="cloud c1">☁️</div><div class="cloud c2">☁️</div><div class="finish"></div><div id="racer" class="racer">🕊️</div><div class="track"></div></div>
-<div class="progress"><div id="raceBar"></div></div><p id="raceText" class="small">Yarışa hazır ol.</p><button id="raceBtn" class="btn blue" onclick="race()">🏁 Yarışı Başlat</button></div></section>
-</div><footer><button class="nav active" data-s="coop">Kümes</button><button class="nav" data-s="explore">Keşfet</button><button class="nav" data-s="flight">Uçuş</button><button class="nav" data-s="map">Harita</button><button class="nav" data-s="birds">Güvercin</button><button class="nav" data-s="custom">Karakter</button><button class="nav" data-s="breed">Üretim</button><button class="nav" data-s="health">Sağlık</button><button class="nav" data-s="auction">Pazar</button><button class="nav" data-s="collection">Koleksiyon</button><button class="nav" data-s="market">Market</button><button class="nav" data-s="store">Dükkan</button><button class="nav" data-s="farm">Çiftlik</button><button class="nav" data-s="race">Lig</button></footer>
-<div id="modal"><div class="modalBox" id="modalBox"></div></div><div id="toast"></div>
-<script>
-const KEY='kaplanKumesiV3';
-let state={coins:5000,feed:100,water:100,xp:0,eggs:1,chicks:0,coop:1,points:0,lastPair:null,missions:{feed:false,race:false,daily:false},birds:[
-{name:'Kaplan Bey',breed:'Ankara',sex:'Erkek',health:95,speed:96,power:97,value:12500,age:2,rarity:'Efsane',disease:null},
-{name:'Ay Yıldız',breed:'Beyaz',sex:'Dişi',health:94,speed:91,power:92,value:11000,age:2,rarity:'Destansı',disease:null},
-{name:'Şimşek',breed:'Taklacı',sex:'Erkek',health:90,speed:94,power:92,value:9750,age:3,rarity:'Nadir',disease:null},
-{name:'Kar Beyaz',breed:'Beyaz',sex:'Dişi',health:93,speed:90,power:89,value:7500,age:1,rarity:'Sıradan',disease:null}
-]};
-try{const x=localStorage.getItem(KEY);if(x)state=JSON.parse(x)}catch(e){}
-if(!state.missions)state.missions={feed:false,race:false,daily:false};if(!state.loot)state.loot=[];if(!state.flightLog)state.flightLog=[];if(state.flying===undefined)state.flying=false;if(!state.weather)state.weather={type:0,night:false};if(!state.specialTraining)state.specialTraining={};if(!state.map)state.map={selected:0,unlocked:[0],points:[0,0,0,0]};if(!state.inventory)state.inventory={med:0};if(!state.decor)state.decor=[];if(!state.farm)state.farm={level:1,areas:[0]};
-const rarityClass={'Sıradan':'common','Nadir':'rare','Destansı':'epic','Efsane':'legend'};
-function calcColor(b){let v=(b.speed+b.power)%4;return ['gray','white','dark','gold'][Math.floor(v)]}
-function calcRarity(b){let x=(b.speed+b.power)/2;return x>=97?'Efsane':x>=93?'Destansı':x>=88?'Nadir':'Sıradan'}
-state.birds.forEach(b=>{if(!b.rarity)b.rarity=calcRarity(b);if(!b.color)b.color=calcColor(b);if(b.disease===undefined)b.disease=null});
-const offers=[{name:'Mavi Çakmaklı',price:6500,speed:92,power:94,sex:'Erkek'},{name:'Siyah Taklacı',price:8200,speed:95,power:91,sex:'Dişi'},{name:'Altın Posta',price:15000,speed:98,power:98,sex:'Erkek'}];
-const weatherTypes=[
-{name:'Güneşli',icon:'☀️',wind:10,effect:5},
-{name:'Bulutlu',icon:'☁️',wind:18,effect:0},
-{name:'Rüzgârlı',icon:'🌬️',wind:35,effect:-8},
-{name:'Yağmurlu',icon:'🌧️',wind:28,effect:-15}
-];
-function currentWeather(){return weatherTypes[state.weather.type%weatherTypes.length]}
-function updateWeatherUI(){
- let w=currentWeather();
- if($('#weatherName')){$('#weatherName').textContent=w.name;$('#weatherIcon').textContent=w.icon;$('#windStat').textContent=w.wind+' km/s';$('#weatherEffect').textContent=(w.effect>=0?'+':'')+w.effect;$('#timeMode').textContent=state.weather.night?'Gece':'Gündüz';}
- ['flightScene'].forEach(id=>{let e=$('#'+id);if(e)e.classList.toggle('night',state.weather.night)});
- let layer=$('#rainLayer');if(layer){layer.innerHTML='';if(w.name==='Yağmurlu')for(let i=0;i<38;i++){let d=document.createElement('i');d.className='rainDrop';d.style.left=(i*7%100)+'%';d.style.animationDelay=(i%8)*.08+'s';layer.appendChild(d)}}
-}
-function changeWeather(){state.weather.type=(state.weather.type+1)%weatherTypes.length;updateWeatherUI();save();toast('🌤️ Hava: '+currentWeather().name)}
-function toggleDayNight(){state.weather.night=!state.weather.night;updateWeatherUI();save();toast(state.weather.night?'🌙 Gece oldu':'☀️ Gündüz oldu')}
-
-const $=s=>document.querySelector(s);function save(){localStorage.setItem(KEY,JSON.stringify(state))}
-function toast(t){let e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1800)}
-const cities=[
-{name:'Gaziantep',desc:'Başlangıç şehrin. Buradaki yarışlara ücretsiz katılabilirsin.',unlock:0,reward:900},
-{name:'Adana',desc:'Sıcak iklim ve daha uzun uçuş rotaları.',unlock:80,reward:1400},
-{name:'Ankara',desc:'Zorlu rüzgârlar ve güçlü rakipler.',unlock:220,reward:2200},
-{name:'İstanbul',desc:'En prestijli şehir yarışları seni bekliyor.',unlock:500,reward:4000}
-];
-function renderMap(){
- if(!$('#cityTitle'))return;
- let m=state.map,c=cities[m.selected],opened=m.unlocked.includes(m.selected);
- $('#cityTitle').textContent=(opened?'📍 ':'🔒 ')+c.name;
- $('#cityDesc').textContent=opened?c.desc:'Bu şehir henüz kilitli.';
- $('#cityPoints').textContent=m.points[m.selected]||0;
- $('#cityList').innerHTML=cities.map((x,i)=>`<div class="achievement ${m.unlocked.includes(i)?'unlocked':'locked'}"><span>${m.unlocked.includes(i)?'📍':'🔒'} ${x.name}</span><b>${m.points[i]||0} puan</b></div>`).join('');
- document.querySelectorAll('.cityNode').forEach((n,i)=>{n.classList.toggle('selected',i===m.selected);n.classList.toggle('open',m.unlocked.includes(i));n.classList.toggle('lockedCity',!m.unlocked.includes(i));let icon=n.querySelector?null:null;});
-}
-function selectCity(i){state.map.selected=i;render();toast(cities[i].name+' seçildi')}
-function unlockCity(){
- let next=state.map.unlocked.length;if(next>=cities.length)return toast('Tüm şehirler açıldı! 🎉');
- let need=cities[next].unlock;
- if(state.points<need)return toast('Bu şehri açmak için '+need+' lig puanı gerekli!');
- state.map.unlocked.push(next);state.map.selected=next;state.xp+=25;render();toast('🗺️ '+cities[next].name+' açıldı!')
-}
-function cityRace(){
- let i=state.map.selected;if(!state.map.unlocked.includes(i))return toast('Önce bu şehri aç!');
- let c=cities[i],b=state.birds.reduce((best,x)=>((x.speed+x.power)>(best.speed+best.power)?x:best),state.birds[0]);
- let score=Math.round((b.speed+b.power)/2)+Math.floor(Math.random()*15);
- let win=score>=88-i*2,reward=win?c.reward:Math.round(c.reward*.3);
- state.coins+=reward;state.xp+=win?30:10;state.points+=win?18:5;state.map.points[i]=(state.map.points[i]||0)+(win?25:8);
- render();toast(win?'🏆 '+c.name+' yarışını kazandın! +'+reward+' 🪙':'🏁 Yarış tamamlandı! +'+reward+' 🪙')
-}
-
-const storeItems={
-feed:{name:'Yem Paketi',price:300,amount:30},
-water:{name:'Su Deposu',price:200,amount:30},
-med:{name:'İlaç Kutusu',price:600,amount:2},
-flag:{name:'Kümes Bayrağı',price:900,icon:'🚩'},
-lamp:{name:'Gece Lambası',price:1200,icon:'🏮'},
-garden:{name:'Bahçe',price:1800,icon:'🌿'},
-statue:{name:'Şampiyon Kupası',price:2500,icon:'🏆'}
-};
-function buyStore(k){
- let o=storeItems[k];if(state.coins<o.price)return toast('Yeterli oyun paran yok!');
- if(['flag','lamp','garden','statue'].includes(k)&&state.decor.includes(k))return toast('Bu dekor zaten sende!');
- state.coins-=o.price;
- if(k==='feed')state.feed+=o.amount;
- else if(k==='water')state.water+=o.amount;
- else if(k==='med')state.inventory.med=(state.inventory.med||0)+o.amount;
- else {state.decor.push(k);if(k==='garden')state.birds.forEach(b=>b.health=Math.min(100,b.health+5));}
- state.xp+=8;render();toast('🛒 '+o.name+' satın alındı!')
-}
-function renderStore(){
- if(!$('#invFeed'))return;
- $('#invFeed').textContent=state.feed;$('#invWater').textContent=state.water;$('#invMed').textContent=state.inventory.med||0;$('#invDecor').textContent=state.decor.length;
- $('#decorList').innerHTML=state.decor.length?state.decor.map(k=>`<div class="achievement unlocked"><span>${storeItems[k].icon} ${storeItems[k].name}</span><span>AKTİF</span></div>`).join(''):'Henüz dekor satın almadın.';
- if($('#yardDecor'))$('#yardDecor').innerHTML=state.decor.map(k=>storeItems[k].icon).join(' ');
-}
-
-const farmAreas=[
-{name:'Ana Kümes',icon:'🏠',need:1,cap:8,bonus:0,desc:'Başlangıç kümesi'},
-{name:'Uçuş Bahçesi',icon:'🌳',need:2,cap:5,bonus:5,desc:'Uçuş mesafesi bonusu'},
-{name:'Yavru Bölümü',icon:'🥚',need:3,cap:6,bonus:8,desc:'Yavru gelişim bonusu'},
-{name:'Şampiyon Alanı',icon:'🏆',need:4,cap:10,bonus:15,desc:'Yarış ödülü bonusu'},
-{name:'VIP Kuşhane',icon:'✨',need:5,cap:12,bonus:25,desc:'Özel koleksiyon alanı'}
-];
-function farmCapacity(){return state.farm.areas.reduce((s,i)=>s+farmAreas[i].cap,0)}
-function farmBonus(){return state.farm.areas.reduce((s,i)=>s+farmAreas[i].bonus,0)}
-function renderFarm(){
- if(!$('#farmLevel'))return;
- let f=state.farm;$('#farmLevel').textContent=f.level;$('#farmCoopLevel').textContent='SEVİYE '+f.level;$('#farmCap').textContent=farmCapacity();$('#farmAreaCount').textContent=f.areas.length;$('#farmBonus').textContent=farmBonus()+'%';
- $('#farmInfo').textContent=f.level>=farmAreas.length?'🎉 Çiftliğin maksimum seviyede!':'Sonraki alan: '+farmAreas[f.level].name+' • Seviye '+(f.level+1);
- $('#areaList').innerHTML=farmAreas.map((a,i)=>{let open=f.areas.includes(i);let can=f.level>=a.need;return `<div class="areaRow ${open?'open':can?'':'lock'}"><span>${open?'✅':'🔒'} ${a.icon} <b>${a.name}</b><br><small>${a.desc} • Kapasite +${a.cap}</small></span><span>${open?'AÇIK':can?'AÇILABİLİR':'Seviye '+a.need}</span></div>`}).join('');
-}
-function upgradeFarm(){
- let f=state.farm;if(f.level>=farmAreas.length)return toast('Çiftlik maksimum seviyede!');
- let cost=1500*f.level;
- if(state.coins<cost)return toast(cost.toLocaleString('tr-TR')+' 🪙 gerekli!');
- state.coins-=cost;f.areas.push(f.level);f.level++;state.xp+=30;render();toast('🏡 Yeni alan açıldı! Çiftlik seviye '+f.level)
-}
-
-function render(){save();updateWeatherUI();renderMap();renderStore();renderFarm();$('#coins').textContent=state.coins.toLocaleString('tr-TR');$('#feed').textContent=state.feed;$('#water').textContent=state.water;$('#eggs').textContent=state.eggs;$('#chicks').textContent=state.chicks;$('#xp').textContent=state.xp%100;$('#level').textContent=1+Math.floor(state.xp/100);$('#coopLevel').textContent=state.coop;$('#yardLevel').textContent=state.coop;$('#points').textContent=state.points;if($('#raceBird'))$('#raceBird').innerHTML=state.birds.map((b,i)=>`<option value="${i}">${b.name} • Hız ${b.speed} • Güç ${b.power}</option>`).join('');$('#mFeed').textContent=(state.missions.feed?'1/1':'0/1');$('#mRace').textContent=(state.missions.race?'1/1':'0/1');$('#dailyBtn').textContent=state.missions.daily?'ALINDI':'AL';$('#dailyBtn').disabled=state.missions.daily;
-let lig=state.points<100?'Bronz Lig':state.points<250?'Gümüş Lig':state.points<500?'Altın Lig':'Elmas Lig';$('#league').textContent=lig;
-if($('#customBird')){let cur=$('#customBird').value;$('#customBird').innerHTML=state.birds.map((b,i)=>`<option value="${i}">${b.name}</option>`).join('');if(cur!==''&&state.birds[cur])$('#customBird').value=cur;renderCustom()}
-if($('#flightSelect'))$('#flightSelect').innerHTML=state.birds.map((b,i)=>`<option value="${i}">${b.name} • Hız ${b.speed} • Güç ${b.power}</option>`).join('');
-if($('#flightLog'))$('#flightLog').innerHTML=state.flightLog.length?state.flightLog.slice(-6).reverse().map(x=>`<div class='achievement'><span>${x}</span></div>`).join(''):'Henüz uçuş yapılmadı.';
-if($('#lootList'))$('#lootList').innerHTML=state.loot.length?state.loot.slice(-8).reverse().map(x=>`<div class='achievement unlocked'><span>${x}</span><span>✓</span></div>`).join(''):'Henüz buluntu yok.';let power=state.birds.reduce((sum,b)=>sum+Math.round((b.speed+b.power)/2),0);if($('#collectionPower'))$('#collectionPower').textContent=power;
-if($('#collectionGrid'))$('#collectionGrid').innerHTML=state.birds.map(b=>`<div class="card"><div class="pigeonArt ${b.color||'gray'}"><span>🕊️</span></div><div class="name">${b.name}</div><span class="rarity ${rarityClass[b.rarity]}">${b.rarity}</span><div class="small">${b.breed}</div></div>`).join('');
-let ach=[
-['İlk Uçuş',state.points>=8,'İlk yarışını tamamla'],
-['Yetiştirici',state.birds.length>=6,'6 güvercine ulaş'],
-['Nadir Avcısı',state.birds.some(b=>b.rarity==='Nadir'||b.rarity==='Destansı'||b.rarity==='Efsane'),'Nadir veya daha iyi bir güvercin al'],
-['Şampiyon',state.points>=100,'100 lig puanına ulaş'],
-['Usta Kümes',state.coop>=2,'Kümesi seviye 2 yap']
-];if($('#achievements'))$('#achievements').innerHTML=ach.map(a=>`<div class="achievement ${a[1]?'unlocked':'locked'}"><div><b>${a[0]}</b><div class="small">${a[2]}</div></div><div class="check">${a[1]?'🏆':'🔒'}</div></div>`).join('');
-if($('#auctionOffer')){let a=state.auction||{name:'Gökyüzü',price:18000,speed:99,power:99,sex:'Dişi',breed:'Özel Posta',rarity:'Efsane',color:'gold'};state.auction=a;$('#auctionOffer').innerHTML=`<div class="offer"><div class="emoji">🕊️</div><div><b>${a.name} ♀️</b><div class="small">${a.breed} • Hız ${a.speed} • Güç ${a.power}</div><span class="rarity legend">EFSANE</span></div><div><div class="price">🪙 ${a.price.toLocaleString('tr-TR')}</div><button class="btn" onclick="buyAuction()">SATIN AL</button></div></div>`}
-$('#grid').innerHTML=state.birds.map((b,i)=>`<div class="card"><div class="pigeonArt ${b.color||"gray"}"><span>🕊️</span></div><div class="name">${b.name} ${b.sex==='Erkek'?'♂️':'♀️'}</div><div class="small">${b.breed} • ${b.age} yaşında</div><div class="small">❤️ Sağlık ${b.health}</div><div class="bar"><div class="fill ${b.health<55?'bad':''}" style="width:${b.health}%"></div></div><div class="small">💨 ${b.speed} • ⚡ ${b.power}</div><span class="rarity ${rarityClass[b.rarity]}">${b.rarity}</span><br><span class="status ${b.health<55?'sick':''}">${b.health<55?'HASTA':'SAĞLIKLI'}</span><button class="btn blue detailBtn" onclick="openBird(${i})">DETAY</button></div>`).join('');
-$('#male').innerHTML='<option value="">Erkek seç...</option>'+state.birds.map((b,i)=>b.sex==='Erkek'?`<option value="${i}">${b.name}</option>`:'').join('');
-$('#female').innerHTML='<option value="">Dişi seç...</option>'+state.birds.map((b,i)=>b.sex==='Dişi'?`<option value="${i}">${b.name}</option>`:'').join('');
-if($('#patient')){$('#patient').innerHTML='<option value="">Güvercin seç...</option>'+state.birds.map((b,i)=>`<option value="${i}">${b.name} — ${b.health} sağlık${b.disease?' • '+b.disease:''}</option>`).join('');
-let sick=state.birds.filter(b=>b.disease);$('#healthInfo').textContent=sick.length?('Hasta: '+sick.map(b=>b.name+' ('+b.disease+')').join(', ')):'💚 Şu anda hasta güvercin yok.';
-$('#rarityInfo').innerHTML=state.birds.map(b=>`<div class="small">🕊️ <b>${b.name}</b> — <span class="rarity ${rarityClass[b.rarity]}">${b.rarity}</span></div>`).join('');}
-$('#pairInfo').textContent=state.lastPair?state.lastPair.male+' ❤️ '+state.lastPair.female+' eşleştirildi.':'Henüz eşleştirme yapılmadı.';
-$('#marketList').innerHTML=offers.map((o,i)=>`<div class="offer"><div class="emoji">🕊️</div><div><b>${o.name} ${o.sex==='Erkek'?'♂️':'♀️'}</b><div class="small">Hız ${o.speed} • Güç ${o.power}</div></div><div><div class="price">🪙 ${o.price.toLocaleString('tr-TR')}</div><button class="btn" onclick="buy(${i})">SATIN AL</button></div></div>`).join('')}
-function openBird(i){let b=state.birds[i];if(!b)return;$('#modalBox').innerHTML=`<div class="modalHead"><h2>🕊️ ${b.name}</h2><button class="close" onclick="closeModal()">×</button></div><div class="panel"><div class="pic">🕊️</div><h3>${b.breed} • ${b.sex}</h3><p>❤️ Sağlık: <b>${b.health}</b></p><p>💨 Hız: <b>${b.speed}</b></p><p>⚡ Uçuş Gücü: <b>${b.power}</b></p><p>🎂 Yaş: <b>${b.age}</b></p><p>🪙 Değer: <b>${b.value.toLocaleString('tr-TR')}</b></p><button class="btn blue" onclick="train(${i})">💪 Eğitim • 200 🪙</button> <button class="btn red" onclick="sell(${i})">💰 Sat</button></div>`;$('#modal').style.display='flex'}
-function closeModal(){$('#modal').style.display='none'}function train(i){if(state.coins<200)return toast('Yeterli paran yok!');state.coins-=200;state.birds[i].speed=Math.min(100,state.birds[i].speed+1);state.birds[i].power=Math.min(100,state.birds[i].power+1);state.xp+=10;render();openBird(i);toast('💪 Eğitim tamamlandı!')}
-function sell(i){let b=state.birds[i];state.coins+=Math.floor(b.value*.65);state.birds.splice(i,1);closeModal();render();toast('Güvercin satıldı!')}
-function care(k){if(state[k]<=0)return toast(k==='feed'?'Yem bitti!':'Su bitti!');state[k]-=10;if(k==='feed')state.missions.feed=true;state.birds.forEach(b=>b.health=Math.min(100,b.health+3));state.xp+=5;render();toast(k==='feed'?'🌾 Yem verildi!':'💧 Su verildi!')}
-function healthCheck(){state.birds.forEach(b=>{if(!b.disease&&b.health<75&&Math.random()<.45){b.disease=Math.random()<.5?'Solunum Sorunu':'Sindirim Sorunu';b.health=Math.max(20,b.health-15)}});let sick=state.birds.filter(b=>b.health<60);if(!sick.length)return toast('💚 Herkes sağlıklı!');if(state.coins<300)return toast('300 🪙 gerekli!');state.coins-=300;sick.forEach(b=>b.health=Math.min(95,b.health+35));render();toast('💊 Tedavi tamamlandı!')}
-function upgradeCoop(){let cost=state.coop*2500;if(state.coins<cost)return toast(`Yükseltme için ${cost} 🪙 gerekli!`);state.coins-=cost;state.coop++;state.xp+=25;render();toast('🏠 Kümes yükseltildi!')}
-function pair(){let m=$('#male').value,f=$('#female').value;if(m===''||f==='')return toast('Erkek ve dişi seç!');state.lastPair={m:+m,f:+f,male:state.birds[m].name,female:state.birds[f].name};state.eggs++;state.xp+=15;render();toast('❤️ Eşleşme başarılı! +1 yumurta')}
-function hatch(){if(state.eggs<1)return toast('Yumurta yok!');if(!state.lastPair)return toast('Önce eşleştir!');let a=state.birds[state.lastPair.m],b=state.birds[state.lastPair.f],names=['Minik Kaplan','Bulut','Rüzgar','Yıldız','Şampiyon'];let baby={name:names[Math.floor(Math.random()*names.length)]+' #'+(state.chicks+1),breed:'Melez',sex:Math.random()>.5?'Erkek':'Dişi',health:100,speed:Math.round((a.speed+b.speed)/2),power:Math.round((a.power+b.power)/2),value:5500,age:0,rarity:calcRarity({speed:Math.round((a.speed+b.speed)/2),power:Math.round((a.power+b.power)/2)}),disease:null,color:calcColor({speed:Math.round((a.speed+b.speed)/2),power:Math.round((a.power+b.power)/2)})};state.eggs--;state.chicks++;state.birds.push(baby);state.xp+=25;render();toast('🐣 Yeni yavru doğdu!')}
-function treat(type){let i=$('#patient').value;if(i==='')return toast('Güvercin seç!');let b=state.birds[i],cost=type==='basic'?300:150;if(type==='basic'&&(state.inventory?.med||0)>0){state.inventory.med--;cost=0;toast('📦 Depodaki ilaç kullanıldı!')}else if(state.coins<cost)return toast('Yeterli paran yok!');state.coins-=cost;if(type==='basic'){b.health=Math.min(100,b.health+40);b.disease=null}else b.health=Math.min(100,b.health+18);state.xp+=8;render();toast(type==='basic'?'💊 Tedavi tamamlandı!':'🍋 Vitamin verildi!')}
-function resource(k,n,c){if(state.coins<c)return toast('Yeterli paran yok!');state.coins-=c;state[k]+=n;render();toast('Satın alındı!')}
-function buyAuction(){let a=state.auction;if(!a)return;if(state.coins<a.price)return toast('Yeterli oyun paran yok!');state.coins-=a.price;state.birds.push({name:a.name,breed:a.breed,sex:a.sex,health:100,speed:a.speed,power:a.power,value:a.price,age:2,rarity:a.rarity,disease:null,color:a.color});state.auction=null;state.xp+=50;render();toast('🌟 Efsane güvercin koleksiyonuna eklendi!')}
-function buy(i){let o=offers[i];if(state.coins<o.price)return toast('Yeterli paran yok!');state.coins-=o.price;state.birds.push({name:o.name,breed:'Özel',sex:o.sex,health:100,speed:o.speed,power:o.power,value:o.price,age:2,rarity:calcRarity(o),disease:null,color:calcColor(o)});render();toast('🕊️ Yeni güvercin geldi!')}
-function race(){let idx=$('#raceBird').value;if(idx===''||!state.birds[idx])return toast('Yarışacak güvercini seç!');let bird=state.birds[idx],best=(bird.speed+bird.power)/2;let btn=$('#raceBtn'),r=$('#racer');btn.disabled=true;r.style.left='3%';$('#raceBar').style.width='0%';$('#raceText').textContent='🕊️ '+bird.name+' havalandı...';setTimeout(()=>{r.style.left='32%';$('#raceBar').style.width='35%'},200);setTimeout(()=>{r.style.left='62%';$('#raceBar').style.width='70%';$('#raceText').textContent='Son düzlük!'},900);setTimeout(()=>{let win=best>=95||(b.trait==='Şampiyon'?Math.random()>.30:Math.random()>.42),reward=win?1800:400;r.style.left=win?'86%':'73%';state.coins+=reward;state.points+=win?40:8;state.missions.race=true;state.xp+=win?35:8;$('#raceBar').style.width='100%';$('#raceText').textContent=(win?'🏆 '+bird.name+' kazandı! ':'🏁 '+bird.name+' yarışı tamamladı. ')+reward+' 🪙 ödül';btn.disabled=false;render();toast(win?'🏆 Şampiyon '+bird.name+'!':'🏁 Yarış bitti!')},1750)}
-function sw(id){document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('active',x.dataset.s===id))}
-document.querySelectorAll('[data-s]').forEach(x=>x.onclick=()=>sw(x.dataset.s));render();
-</script></body></html>
+</body>
+</html>
