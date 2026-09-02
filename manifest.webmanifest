@@ -1,0 +1,9 @@
+{
+  "name": "Kaplan Kümesi",
+  "short_name": "Kaplan Kümesi",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#101a22",
+  "theme_color": "#101a22",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml"}]
+}
