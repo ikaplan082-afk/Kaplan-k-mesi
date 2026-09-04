@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Tavuk Çiftliği 3D</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,sans-serif;background:#87c5f5}
+#game{position:fixed;inset:0}
+canvas{display:block}
+#hud{position:fixed;top:max(10px,env(safe-area-inset-top));left:10px;display:flex;gap:7px;flex-wrap:wrap;z-index:20}
+.stat{background:#172331e8;color:#fff;padding:9px 12px;border-radius:13px;font-weight:800;box-shadow:0 3px 10px #0003}
+#actions{position:fixed;right:12px;bottom:max(15px,env(safe-area-inset-bottom));z-index:30;display:flex;gap:5px}
+.action{background:#286b3b;color:#fff;border:0;border-radius:13px;padding:13px 15px;font-weight:900;font-size:14px;box-shadow:0 3px 10px #0004;touch-action:manipulation}
+#joystick{position:fixed;left:18px;bottom:max(20px,env(safe-area-inset-bottom));width:120px;height:120px;border-radius:50%;border:2px solid #fff8;background:#ffffff26;z-index:30;touch-action:none}
+#stick{position:absolute;width:50px;height:50px;border-radius:50%;background:#ffffffe8;left:33px;top:33px}
+#panel{display:none;position:fixed;z-index:50;left:50%;top:50%;transform:translate(-50%,-50%);width:min(420px,calc(100% - 28px));max-height:78vh;overflow:auto;background:#f6f1e8;border-radius:20px;padding:16px;box-shadow:0 12px 45px #0008;color:#18222d}
+#panel h2{margin:0 0 10px}
+.shopItem{background:#fff;border-radius:14px;padding:12px;margin:9px 0}
+.buy{border:0;border-radius:10px;padding:10px 13px;background:#397847;color:white;font-weight:900;margin-top:8px;touch-action:manipulation}
+.close{width:100%;background:#333;margin-top:8px}
+#toast{display:none;position:fixed;z-index:70;top:78px;left:50%;transform:translateX(-50%);background:#172331;color:white;padding:11px 15px;border-radius:13px;font-weight:800}
+</style>
+</head>
+<body>
+<div id="game"></div>
+
+<div id="hud">
+  <div class="stat">🐔 TAVUK ÇİFTLİĞİ 3D</div>
+  <div class="stat">💰 <span id="money">500</span> ₺</div>
+  <div class="stat">🐔 <span id="chickens">0</span></div>
+  <div class="stat">🥚 <span id="eggs">0</span></div>
+  <div class="stat">🌾 <span id="feed">100</span></div>
+</div>
+
+<div id="joystick"><div id="stick"></div></div>
+
+<div id="actions">
+  <button class="action" id="market">🛒 MARKET</button>
+  <button class="action" id="coop">🏠 KÜMES</button>
+  <button class="action" id="flock">🐔 SÜRÜ</button>
+</div>
+
+<div id="panel"></div>
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+(function(){
+"use strict";
+
+const stateKey="kaplan_tavuk_ciftligi_v1";
+let state;
+try{state=JSON.parse(localStorage.getItem(stateKey)||"null")}catch(e){}
+if(!state)state={money:500,feed:100,eggs:0,nextId:1,chickens:[]};
+if(!state.chickens.length){
+  state.chickens.push({id:state.nextId++,sex:"Dişi",age:"Yetişkin",days:60,weight:1.8});
+}
+function save(){localStorage.setItem(stateKey,JSON.stringify(state));updateHUD()}
+function updateHUD(){
+  document.getElementById("money").textContent=Math.floor(state.money);
+  document.getElementById("chickens").textContent=state.chickens.length;
+  document.getElementById("eggs").textContent=state.eggs;
+  document.getElementById("feed").textContent=Math.floor(state.feed);
+}
+function toast(t){
+  const x=document.getElementById("toast");x.textContent=t;x.style.display="block";
+  clearTimeout(window._toast);window._toast=setTimeout(()=>x.style.display="none",1800);
+}
+
+const panel=document.getElementById("panel");
+function openPanel(){panel.style.display="block"}
+function closePanel(){panel.style.display="none"}
+
+function button(text,fn,cls="buy"){
+  const b=document.createElement("button");b.textContent=text;b.className=cls;
+  b.addEventListener("click",function(e){e.preventDefault();e.stopPropagation();fn()});
+  return b;
+}
+function item(title,desc,action){
+  const d=document.createElement("div");d.className="shopItem";
+  const b=document.createElement("b");b.textContent=title;d.appendChild(b);
+  const p=document.createElement("div");p.textContent=desc; p.style.marginTop="5px";p.style.fontSize="13px";p.style.color="#66717b";d.appendChild(p);
+  d.appendChild(button(action.text,action.fn));panel.appendChild(d);
+}
+
+function market(){
+ openPanel();panel.innerHTML="<h2>🛒 Tavuk Marketi</h2>";
+ item("🐔 Dişi Tavuk — 80 ₺","Yetişkin. Yumurta üretimi ve çiftleşme için.",{
+  text:"SATIN AL",fn:function(){
+   if(state.money<80)return toast("Yeterli paran yok.");
+   state.money-=80;state.chickens.push({id:state.nextId++,sex:"Dişi",age:"Yetişkin",days:60,weight:1.8});save();toast("🐔 Dişi tavuk alındı!");market();
+  }});
+ item("🐓 Erkek Horoz — 100 ₺","Yetişkin. Çiftleşme için.",{
+  text:"SATIN AL",fn:function(){
+   if(state.money<100)return toast("Yeterli paran yok.");
+   state.money-=100;state.chickens.push({id:state.nextId++,sex:"Erkek",age:"Yetişkin",days:60,weight:2.0});save();toast("🐓 Horoz alındı!");market();
+  }});
+ item("🌾 50 Yem — 25 ₺","Tavukların günlük beslenmesi için.",{
+  text:"SATIN AL",fn:function(){
+   if(state.money<25)return toast("Yeterli paran yok.");
+   state.money-=25;state.feed+=50;save();toast("🌾 Yem alındı!");market();
+  }});
+ panel.appendChild(button("KAPAT",closePanel,"buy close"));
+}
+
+function coop(){
+ openPanel();panel.innerHTML="<h2>🏠 Tavuk Kümesi</h2>";
+ const hens=state.chickens.filter(x=>x.sex==="Dişi").length;
+ const roosters=state.chickens.filter(x=>x.sex==="Erkek").length;
+ const info=document.createElement("div");info.className="shopItem";
+ info.innerHTML="🐔 Dişi: <b>"+hens+"</b><br>🐓 Horoz: <b>"+roosters+"</b><br>🥚 Döllü yumurta: <b>"+state.eggs+"</b>";
+ panel.appendChild(info);
+ const breed=item("❤️ Çiftleşme","Bir dişi + bir yetişkin horoz ve 3 yem gerekir.",{
+  text:"ÇİFTLEŞTİR",fn:function(){
+   if(!hens||!roosters)return toast("Önce dişi ve horoz almalısın.");
+   if(state.feed<3)return toast("3 yem gerekli.");
+   state.feed-=3;state.eggs++;save();toast("🥚 Döllü yumurta oluştu!");coop();
+  }});
+ item("🐣 Kuluçka","Bir yumurtayı civcive çevirir. İlk prototipte anında doğar.",{
+  text:"KULUÇKAYA AL",fn:function(){
+   if(state.eggs<1)return toast("Kuluçkaya alınacak yumurta yok.");
+   state.eggs--;
+   state.chickens.push({id:state.nextId++,sex:Math.random()<.5?"Dişi":"Erkek",age:"Civciv",days:0,weight:.12});
+   save();toast("🐣 Civciv çıktı!");coop();
+  }});
+ panel.appendChild(button("KAPAT",closePanel,"buy close"));
+}
+
+function flock(){
+ openPanel();panel.innerHTML="<h2>🐔 Sürüm</h2>";
+ state.chickens.forEach(c=>{
+   const d=document.createElement("div");d.className="shopItem";
+   d.textContent=(c.sex==="Dişi"?"🐔 ":"🐓 ")+"#"+c.id+" • "+c.sex+" • "+c.age+" • "+c.weight.toFixed(2)+" kg";
+   panel.appendChild(d);
+ });
+ panel.appendChild(button("KAPAT",closePanel,"buy close"));
+}
+
+document.getElementById("market").addEventListener("click",market);
+document.getElementById("coop").addEventListener("click",coop);
+document.getElementById("flock").addEventListener("click",flock);
+
+/* 3D dünya */
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x8fc9ff);
+scene.fog=new THREE.Fog(0x8fc9ff,35,90);
+
+const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,.1,100);
+camera.position.set(7,6,16);
+
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));
+renderer.setSize(innerWidth,innerHeight);
+renderer.shadowMap.enabled=true;
+document.getElementById("game").appendChild(renderer.domElement);
+
+scene.add(new THREE.HemisphereLight(0xffffff,0x56734c,2.0));
+const sun=new THREE.DirectionalLight(0xffffff,2.2);sun.position.set(15,25,10);sun.castShadow=true;scene.add(sun);
+
+function mat(color){return new THREE.MeshStandardMaterial({color,roughness:.8})}
+function cube(name,x,y,z,sx,sy,sz,color){
+ const m=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),mat(color));
+ m.name=name;m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;scene.add(m);return m;
+}
+
+/* Zemin */
+cube("Çiftlik",0,-.5,0,60,1,60,0x4f9a3f);
+cube("Yol",0,.03,9,5,.08,42,0xb28b5d);
+
+/* Ev ve kümes */
+cube("Ev",14,2,-7,10,4,9,0xd6b07b);
+cube("Çatı",14,5,-7,11,.9,10,0x9b3429);
+cube("Kümes",0,2,-7,13,4,7,0xc98542);
+cube("Kümes Çatı",0,4.7,-7,14,.8,8,0x8c2f24);
+cube("Kapı",0,1.5,-3.45,2.3,3,.2,0x49301f);
+
+/* Çit */
+for(let x=-9;x<=9;x+=2)cube("Çit",x,1.1,2,.12,2,.12,0x76502d);
+cube("Çit",0,2,2,18,.12,.12,0x76502d);
+
+/* Yemlik ve suluk */
+cube("Yemlik",-5,.45,5,2.8,.55,.9,0xc47b20);
+cube("Suluk",5,.5,5,2,.7,1,0x4b91c8);
+
+/* 30 yuva */
+for(let i=0;i<30;i++){
+ const x=-5.5+(i%5)*2.75;
+ const z=-9+Math.floor(i/5)*2.25;
+ cube("Yuva "+(i+1),x,.75,z,1.05,1.15,.85,0x6b3e1e);
+}
+
+/* Ağaçlar */
+for(let i=0;i<14;i++){
+ const x=-24+(i*9)%48,z=-20+((i*17)%40);
+ cube("Gövde",x,1,z,.5,2,.5,0x68421f);
+ const crown=cube("Ağaç",x,3,z,2.2,2.2,2.2,0x2f7e38);
+ crown.rotation.y=.2;
+}
+
+/* Basit karakter */
+const player=new THREE.Group();
+const body=new THREE.Mesh(new THREE.CapsuleGeometry(.42,1.15,4,8),mat(0x294e78));
+body.position.y=1.1;body.castShadow=true;player.add(body);
+const head=new THREE.Mesh(new THREE.SphereGeometry(.32,12,8),mat(0xe0ad7a));
+head.position.y=2;head.castShadow=true;player.add(head);
+player.position.set(0,0,13);scene.add(player);
+
+/* Tavuk modeli */
+function chickenModel(c,index){
+ const g=new THREE.Group();
+ const white=c.sex==="Dişi"?0xf2eee0:0xd8d2c5;
+ const body=new THREE.Mesh(new THREE.SphereGeometry(.55,12,8),mat(white));body.scale.set(1,0.72,1.35);body.castShadow=true;g.add(body);
+ const head=new THREE.Mesh(new THREE.SphereGeometry(.32,12,8),mat(white));head.position.set(0,.28,.62);head.castShadow=true;g.add(head);
+ const beak=new THREE.Mesh(new THREE.ConeGeometry(.12,.28,6),mat(0xe9a321));beak.rotation.x=Math.PI/2;beak.position.set(0,.25,.93);g.add(beak);
+ const comb=new THREE.Mesh(new THREE.SphereGeometry(.12,8,6),mat(0xd72e2e));comb.scale.set(1,.7,.8);comb.position.set(0,.58,.62);g.add(comb);
+ g.position.set(-6+(index%6)*2.2,.62,.2+Math.floor(index/6)*1.5);
+ scene.add(g);return g;
+}
+let chickenMeshes=[];
+function rebuildChickens(){
+ chickenMeshes.forEach(x=>scene.remove(x));chickenMeshes=[];
+ state.chickens.forEach((c,i)=>chickenMeshes.push(chickenModel(c,i)));
+}
+rebuildChickens();updateHUD();
+
+/* Mobil joystick */
+let jx=0,jy=0,drag=false;
+const joy=document.getElementById("joystick"),stick=document.getElementById("stick");
+function joyMove(e){
+ const r=joy.getBoundingClientRect(),p=e.touches[0];
+ let x=p.clientX-r.left-r.width/2,y=p.clientY-r.top-r.height/2;
+ const len=Math.hypot(x,y),max=43;if(len>max){x=x/len*max;y=y/len*max}
+ jx=x/max;jy=y/max;stick.style.transform="translate("+x+"px,"+y+"px)";
+}
+joy.addEventListener("touchstart",e=>{drag=true;joyMove(e);e.preventDefault()},{passive:false});
+joy.addEventListener("touchmove",e=>{if(drag)joyMove(e);e.preventDefault()},{passive:false});
+joy.addEventListener("touchend",e=>{drag=false;jx=jy=0;stick.style.transform="translate(0,0)"},{passive:false});
+
+/* Klavye */
+const keys={};
+addEventListener("keydown",e=>keys[e.key.toLowerCase()]=true);
+addEventListener("keyup",e=>keys[e.key.toLowerCase()]=false);
+
+let last=performance.now();
+function animate(now){
+ requestAnimationFrame(animate);
+ const dt=Math.min(.04,(now-last)/1000);last=now;
+ let mx=(keys.d?1:0)-(keys.a?1:0)+jx;
+ let mz=(keys.s?1:0)-(keys.w?1:0)+jy;
+ const len=Math.hypot(mx,mz);
+ if(len){mx/=len;mz/=len;player.position.x+=mx*dt*5;player.position.z+=mz*dt*5}
+ player.position.x=Math.max(-24,Math.min(24,player.position.x));
+ player.position.z=Math.max(-24,Math.min(24,player.position.z));
+
+ const desired=new THREE.Vector3(player.position.x+7,6.2,player.position.z+9);
+ camera.position.lerp(desired,.09);
+ camera.lookAt(player.position.x,1.1,player.position.z);
+ renderer.render(scene,camera);
+}
+requestAnimationFrame(animate);
+
+addEventListener("resize",()=>{
+ camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
+ renderer.setSize(innerWidth,innerHeight);
+});
+})();
+</script>
+</body>
+</html>
